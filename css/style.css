@@ -4,8 +4,10 @@
   --text: #f0f0f0;
   --muted: #888888;
   --accent: #4d9fff;
+  --accent-soft: rgba(77, 159, 255, 0.12);
   --border: rgba(255, 255, 255, 0.08);
   --card: #141414;
+  --card-hover: #1a1a1a;
   --focus-ring: rgba(77, 159, 255, 0.5);
 }
 
@@ -91,7 +93,7 @@ body {
   transition: width 0.1s ease;
 }
 
-/* Focus Visible — Global */
+/* Focus Visible */
 a:focus-visible,
 button:focus-visible {
   outline: 2px solid var(--accent);
@@ -237,11 +239,20 @@ button:focus-visible {
   font-weight: 800;
   letter-spacing: -2px;
   line-height: 1.1;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
   text-wrap: balance;
   opacity: 0;
   transform: translateY(30px);
   animation: fadeUp 0.8s ease 0.5s forwards;
+}
+
+.hero-subname {
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  color: var(--muted);
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: fadeIn 0.8s ease 0.7s forwards;
 }
 
 .hero-typed {
@@ -250,7 +261,7 @@ button:focus-visible {
   font-weight: 400;
   min-height: 2rem;
   opacity: 0;
-  animation: fadeIn 0.8s ease 0.8s forwards;
+  animation: fadeIn 0.8s ease 0.9s forwards;
 }
 
 .cursor {
@@ -371,6 +382,11 @@ button:focus-visible {
   border-bottom: 1px solid var(--border);
 }
 
+.info-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
 .info-label {
   font-size: 0.8rem;
   color: var(--muted);
@@ -450,32 +466,104 @@ button:focus-visible {
   overflow-wrap: break-word;
 }
 
+.timeline-desc p {
+  margin-bottom: 0.6rem;
+}
+
+.timeline-achievements {
+  list-style: none;
+  padding: 0;
+  margin-top: 0.5rem;
+}
+
+.timeline-achievements li {
+  position: relative;
+  padding-left: 1.2rem;
+  margin-bottom: 0.4rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.timeline-achievements li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* Awards */
+.awards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.award-year {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-top: 2rem;
+  margin-bottom: 0.8rem;
+  letter-spacing: 1px;
+}
+
+.award-year:first-child {
+  margin-top: 0;
+}
+
+.award-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.award-item:last-child {
+  border-bottom: none;
+}
+
+.award-title {
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.award-project {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
 /* Works */
 .works-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
 }
 
 .work-card {
-  display: block;
-  text-decoration: none;
-  color: inherit;
+  display: flex;
+  flex-direction: column;
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
-  transition: transform 0.4s ease, border-color 0.4s ease;
+  cursor: pointer;
+  transition: transform 0.4s ease, border-color 0.4s ease, background 0.4s ease;
   touch-action: manipulation;
 }
 
 .work-card:hover {
   transform: translateY(-6px);
   border-color: rgba(77, 159, 255, 0.3);
+  background: var(--card-hover);
 }
 
 .work-image {
-  height: 180px;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -483,25 +571,60 @@ button:focus-visible {
   overflow: hidden;
 }
 
-.work-placeholder {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.3);
+.work-image--travel {
+  background: linear-gradient(135deg, #0c3a5e, #1a6fa8, #4d9fff);
+}
+
+.work-image--lumi {
+  background: linear-gradient(135deg, #1a1a3e, #4a3a7e, #7e5dc4);
+}
+
+.work-image--baidu {
+  background: linear-gradient(135deg, #1a0a2e, #5b2a8e, #c77dff);
+}
+
+.work-image--snack {
+  background: linear-gradient(135deg, #1a3e1a, #4caf50, #f5c6a5);
+}
+
+.work-number {
+  font-size: 3rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.25);
   letter-spacing: 2px;
   transition: transform 0.4s ease, color 0.4s ease;
 }
 
-.work-card:hover .work-placeholder {
+.work-card:hover .work-number {
   transform: scale(1.1);
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .work-info {
   padding: 1.5rem;
   min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.work-tags {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.work-tag {
+  font-size: 0.7rem;
+  color: var(--accent);
+  padding: 0.2rem 0.7rem;
+  border: 1px solid rgba(77, 159, 255, 0.3);
+  border-radius: 999px;
 }
 
 .work-info h3 {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
   text-wrap: balance;
@@ -512,15 +635,169 @@ button:focus-visible {
   font-size: 0.9rem;
   margin-bottom: 1rem;
   overflow-wrap: break-word;
+  flex: 1;
 }
 
-.work-tag {
-  display: inline-block;
-  font-size: 0.75rem;
+.work-link {
+  font-size: 0.85rem;
   color: var(--accent);
-  padding: 0.2rem 0.8rem;
-  border: 1px solid rgba(77, 159, 255, 0.3);
-  border-radius: 999px;
+  transition: gap 0.3s ease;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 500;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  overflow-y: auto;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  max-width: 720px;
+  width: 100%;
+  margin: auto;
+  position: relative;
+  transform: translateY(30px);
+  transition: transform 0.3s ease;
+}
+
+.modal-overlay.open .modal {
+  transform: translateY(0);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: var(--text);
+  font-size: 1.4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+  z-index: 1;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.modal-body {
+  padding: 2.5rem;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.modal-body::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+.modal-header {
+  margin-bottom: 1.5rem;
+}
+
+.modal-tags {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.modal-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.modal-subtitle {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.modal-section {
+  margin-bottom: 1.8rem;
+}
+
+.modal-section h4 {
+  font-size: 0.85rem;
+  color: var(--accent);
+  letter-spacing: 1px;
+  margin-bottom: 0.6rem;
+  text-transform: uppercase;
+}
+
+.modal-section p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.modal-section li {
+  position: relative;
+  padding-left: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.modal-section li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.modal-colors {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.modal-color-chip {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
 }
 
 /* Contact */
@@ -549,9 +826,10 @@ button:focus-visible {
   transition: border-color 0.3s ease, transform 0.3s ease;
   touch-action: manipulation;
   min-width: 0;
+  cursor: pointer;
 }
 
-.contact-link:hover {
+a.contact-link:hover {
   border-color: var(--accent);
   transform: translateX(8px);
 }
@@ -641,6 +919,16 @@ button:focus-visible {
   .contact-value {
     text-align: left;
   }
+  .modal-body {
+    padding: 1.5rem;
+  }
+  .modal-overlay {
+    padding: 0;
+  }
+  .modal {
+    border-radius: 0;
+    min-height: 100vh;
+  }
 }
 
 /* Reduced Motion */
@@ -661,6 +949,7 @@ button:focus-visible {
 
   .hero-greeting,
   .hero-name,
+  .hero-subname,
   .hero-typed,
   .hero-scroll {
     opacity: 1;
