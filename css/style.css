@@ -1,0 +1,31 @@
+:root {
+  --bg: #0a0a0a;
+  --bg-alt: #111111;
+  --text: #f0f0f0;
+  --muted: #888888;
+  --accent: #4d9fff;
+  --border: rgba(255, 255, 255, 0.08);
+  --card: #141414;
+  --focus-ring: rgba(77, 159, 255, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  font-family: -apple-system, "SF Pro Display", "Segoe UI", "PingFang SC",
+    "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
